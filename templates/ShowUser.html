@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1>This is User Details Page</h1>
+    </div>
+    <div>
+
+        {% if count == 0 %}
+            <p>You have no users</p>
+        {% else %}
+            <p>You have <span>{{ count }}</span> users for your system</p>
+        {% endif %}
+    </div>
+    <div>
+        <table style="width:100%">
+
+        <tr>
+            <th>UserID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Membership</th>
+            <th>Gender</th>
+            <th>Remarks</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.get_userID() }}</td>
+            <td>{{ user.get_firstname() }}</td>
+            <td>{{ user.get_lastname() }}</td>
+            {% if  user.get_membership() == "F" %}
+                    <td> Fellow</td>
+                {% elif user.get_membership() == "S" %}
+                    <td>Senior</td>
+                {% elif user.get_membership() == "P" %}
+                    <td>Professional</td>
+            {% endif %}
+            <td>{{ user.get_gender() }}</td>
+            <td>{{ user.get_remarks() }}</td>
+
+            <td><a href="/update/{{user.get_userID()}}" class="btn btn-warning">Update</a></td>
+            <td><form action="{{url_for('delete_user', id=user.get_userID())}}" method="post">
+                <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
+                </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+
+        </table>
+    </div>
+{% endblock %}

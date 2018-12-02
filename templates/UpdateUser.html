@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% from "includes/_formhelper.html" import render_field %}
+    <div style="padding-left:16px">
+        <h2>Update User Particular</h2>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#prof').hide();
+
+            $('input[type="radio"]').click(function () {
+                if ($(this).attr('value') == 'P') {
+                    $('#prof').show();
+                }
+                else {
+                    $('#prof').hide();
+                }
+            });
+        });
+    </script>
+
+
+ <form method="POST" action="">
+        <div class="form-group">
+            {{ render_field(form.firstname, class_="form-control") }}
+        </div>
+         <div class="form-group">
+            {{ render_field(form.lastname, class_="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ render_field(form.membership, class_="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ render_field(form.gender, class_="form-control") }}
+        </div>
+        <div id="prof">
+            <div class="form-group">
+                {{ render_field(form.remarks, class_="form-control") }}
+            </div>
+        </div>
+    <input type="submit" value="Submit" class="btn btn-info"/>
+ </form>
+{% endblock %}
+
